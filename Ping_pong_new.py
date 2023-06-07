@@ -5,10 +5,6 @@ window = display.set_mode((700, 500))
 display.set_caption("Пинг-понг")
 background = transform.scale(image.load("kviddich2.jpg"), (700, 500))
 
-# mixer.init()
-# mixer.music.load("space.ogg")
-# mixer.music.play()
-
 clock = time.Clock()
 
 FPS = 60
@@ -30,49 +26,24 @@ class GameSprite(sprite.Sprite):
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
-
 class Player(GameSprite):
     def update_p1(self):
         keys_pressed = key.get_pressed()
-
         if keys_pressed[K_UP] and self.rect.y > 0:
             self.rect.y -= self.speed
-        
         if keys_pressed[K_DOWN] and self.rect.y < 340:
             self.rect.y += self.speed 
 
     def update_p2(self):
         keys_pressed = key.get_pressed()
-
         if keys_pressed[K_w] and self.rect.y > 0:
             self.rect.y -= self.speed
-        
         if keys_pressed[K_s] and self.rect.y < 340:
             self.rect.y += self.speed 
 
 class Ball(GameSprite):
     def update(self):
         self.rect.x += self.speed
-
-    # def colliderect(self, rect):     #столкновение двух спрайтов
-    #     return self.rect.colliderect(rect)
-# lost = 0
-
-# class Enemy(GameSprite):
-#     def update(self):
-#         global lost
-#         self.rect.y += self.speed
-#         if self.rect.y > 500:
-#             self.rect.y = 0
-#             self.rect.x = random.randint(100, 600)
-#             lost = lost + 1
-
-# class Asteroid(GameSprite):
-#     def update(self):
-#         self.rect.y += self.speed
-#         if self.rect.y > 500:
-#             self.rect.y = 0
-#             self.rect.x = random.randint(100, 600)
 
 speed_x = 1
 speed_y = 1
@@ -83,28 +54,11 @@ ball = Ball("kvoffle.png", 180, 100, 0, 44, 44)
 
 font.init()
 font = font.SysFont("Arial", 36)
-# font2 = font.SysFont("Arial", 44)
-# font3 = font.SysFont("Arial", 56)
-
-# enemies = sprite.Group()
-
-# for i in range(5):
-#     enemy = Enemy("ufo.png", random.randint(100, 600), 0, random.randint(1, 2), 64, 64)
-#     enemies.add(enemy)
-
-# asteroids = sprite.Group()
-
-# for i in range(3):
-#     asteroid = Asteroid("asteroid.png", random.randint(100, 600), 0, random.randint(1, 2), 60, 60)
-#     asteroids.add(asteroid)
 
 game = True
 
-# amount = 0
-
 defend1 = font.render("HAHA! PLAYER 1 LOSER!", True, (255, 0, 0))
 defend2 = font.render("HAHA! PLAYER 2 LOSER!", True, (255, 0, 0))
-
 
 while game:
     window.blit(background, (0, 0))
@@ -113,17 +67,8 @@ while game:
         if e.type == QUIT:
             game = False
 
-#         elif e.type == KEYDOWN:
-#             if e.key == K_SPACE:
-#                 player.fire()
     ball.rect.x += speed_x
     ball.rect.y += speed_y
-    
-    # if ball.rect.x > 600 or ball.rect.x < 0:
-    #     speed_x *= -1
-
-
-    
 
     if finish != True:
             
@@ -142,32 +87,6 @@ while game:
 
         if sprite.collide_rect(player1, ball) or sprite.collide_rect(player2, ball):
             speed_x *= -1
-
-#         enemy.reset()
-#         enemy.update()
-#         enemies.draw(window)
-#         enemies.update()
-#         bullets.draw(window)
-#         bullets.update()
-#         asteroid.update()
-#         asteroid.reset()
-
-#         sprites_list = sprite.groupcollide(enemies, bullets, True, True)
-        
-#         for i in sprites_list:
-#             amount += 1
-#             enemy = Enemy("ufo.png", random.randint(100, 600), 0, random.randint(1, 2), 64, 64)
-#             enemies.add(enemy)
-
-#         text_lose = font1.render("Пропущено: " + str(lost), 1, (255, 255, 255))
-#         window.blit(text_lose, (4, 60))
-
-#         text_win = font1.render("Счёт: " + str(amount), 1, (255, 255, 255))
-#         window.blit(text_win, (4, 20))
-
-#         if amount >= 10:
-#             finish = True
-#             window.blit(win, (50, 250))
 
     if ball.rect.x > 600:
         finish = True
